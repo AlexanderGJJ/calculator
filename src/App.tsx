@@ -1,15 +1,20 @@
-import React from 'react';
-import styles from './st.module.css';
+import React, { useState } from 'react';
+import SignIn from './components/SignIn/SignIn';
 
-class App extends React.Component {
-    render() {
-        return (
-            <div>
-                <h1 className={styles.test}>Calculator 1.0</h1>
-            </div>
+const App = () => {
+    const [status, setStatus] = useState(false);
 
-        );
+    const changeStatus = (event: React.MouseEvent) => {
+        event.preventDefault();
+        setStatus(!status);
     }
-}
+
+    return (
+        <div>
+            <button onClick={changeStatus}>Sign In</button>
+            {status && <SignIn/>}
+        </div>
+    );
+};
 
 export default App;
