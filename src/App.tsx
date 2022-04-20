@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
-import SignIn from './components/SignIn/SignIn';
+import { Route, Routes } from 'react-router-dom';
+import { Registration } from './pages/registration';
+import { Login } from './pages/login';
+import { NotFound } from './pages/NotFound';
 
 const App = () => {
-    const [status, setStatus] = useState(false);
-
-    const changeStatus = (event: React.MouseEvent) => {
-        event.preventDefault();
-        setStatus(!status);
-    }
 
     return (
-        <div>
-            <button onClick={changeStatus}>Sign In</button>
-            {status && <SignIn/>}
-        </div>
+        <Routes>
+            <Route element={<Registration />} path="/" />
+            <Route element={<Login />} path="login" />
+            <Route path="*" element={<NotFound />} />
+        </Routes>
     );
 };
 

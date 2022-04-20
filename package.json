@@ -20,9 +20,15 @@
   },
   "homepage": "https://github.com/AlexanderGJJ/calculator#readme",
   "dependencies": {
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "@mui/material": "^5.6.2",
+    "install": "^0.13.0",
+    "npm": "^8.7.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-hot-loader": "^4.13.0"
+    "react-hot-loader": "^4.13.0",
+    "react-router-dom": "^6.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",
