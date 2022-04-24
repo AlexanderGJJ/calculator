@@ -6,20 +6,20 @@ interface User {
 }
 
 const initialState: User = {
-    name: 'Alex',
-    age: null,
+  name: 'Alex',
+  age: null,
 };
 
 const userSlice = createSlice({
-    name: 'UserSlice',
-    initialState,
-    reducers: {
-        getUserName: (state) => {
-            state.name
-        }
-    }
-})
+  name: 'UserSlice',
+  initialState,
+  reducers: {
+    getUserName: (state) => {
+      state.name;
+    },
+  },
+});
 
 // Action creators are generated for each case reducer function
 export const { getUserName } = userSlice.actions;
-export default userSlice.reducer
+export default userSlice.reducer;
