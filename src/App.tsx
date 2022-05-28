@@ -1,18 +1,31 @@
 import React, { useEffect, useContext } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 
-import { Registration } from './pages/registration';
-import { Login } from './pages/login';
+import { Registration } from './pages/Registration';
+import { Login } from './pages/Login';
+import { Main } from './pages/Main';
 import { NotFound } from './pages/NotFound';
+
 import { AuthContext } from './context/AuthContext';
 
-function App() {
+const App = () => {
   const { checkAuth, isAuth, user, isLoading } = useContext(AuthContext);
+  const navigate = useNavigate();
   useEffect(() => {
     if (localStorage.getItem('token')) {
+      navigate('/login');
+      console.log('checkAuth');
       checkAuth();
     }
   }, []);
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate('/');
+    } else {
+      navigate('/login');
+    }
+  }, [isAuth]);
 
   if (isLoading) {
     return <div>'Loading...'</div>;
@@ -20,21 +33,14 @@ function App() {
 
   return (
     <div>
-      <h3>
-        {isAuth ? `Пользователь авторизован ${user.email}` : ' Не авторизован'}
-      </h3>
-      <h4>
-        {user.isActivated
-          ? 'Activated'
-          : `Пользователь не активирован ${user.email}`}
-      </h4>
       <Routes>
-        <Route element={<Registration />} path="/" />
-        <Route element={<Login />} path="login" />
+        <Route element={<Main />} path="/" />
+        <Route element={<Registration />} path="/registration" />
+        <Route element={<Login />} path="/login" />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );
-}
+};
 
 export { App };

@@ -39,7 +39,7 @@ export const AuthContextProvider = (props: { children: ReactChild }) => {
       localStorage.setItem('token', response.data.accessToken);
       setAuth(true);
       setUser(response.data.user);
-    } catch (e) {
+    } catch (e: any) {
       console.log(e.response?.data?.message);
     }
   };
@@ -51,7 +51,7 @@ export const AuthContextProvider = (props: { children: ReactChild }) => {
       localStorage.setItem('token', response.data.accessToken);
       setAuth(true);
       setUser(response.data.user);
-    } catch (e) {
+    } catch (e: any) {
       console.log(e.response?.data?.message);
     }
   };
@@ -62,7 +62,7 @@ export const AuthContextProvider = (props: { children: ReactChild }) => {
       localStorage.removeItem('token');
       setAuth(false);
       setUser({} as IUser);
-    } catch (e) {
+    } catch (e: any) {
       console.log(e.response?.data?.message);
     }
   };
@@ -79,7 +79,8 @@ export const AuthContextProvider = (props: { children: ReactChild }) => {
       localStorage.setItem('token', response.data.accessToken);
       setAuth(true);
       setUser(response.data.user);
-    } catch (e) {
+    } catch (e: any) {
+      console.log('catch error');
       console.log(e.response?.data?.message);
     } finally {
       setLoading(false);
