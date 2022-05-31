@@ -1,4 +1,5 @@
-import { Link as RouterLink } from 'react-router-dom';
+import { useContext, useEffect } from 'react';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import {
   Button,
   Form,
@@ -12,7 +13,6 @@ import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { AuthContext } from '../../context/AuthContext';
-import { useContext } from 'react';
 
 type FormData = {
   email: string;
@@ -39,16 +39,21 @@ const Login = () => {
     },
     resolver: yupResolver(validationSchema),
   });
+  const navigate = useNavigate();
 
-  const { login } = useContext(AuthContext);
+  const { login, isAuth } = useContext(AuthContext);
 
-  const onSubmit = async (data: unknown) => {
-    const result = await login('email', 'password');
-
-    console.log(result);
+  const onSubmit = async (data: FormData) => {
+    await login(data.email, data.password);
 
     console.log(JSON.stringify(data, null, 2));
   };
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate('/');
+    }
+  }, [isAuth]);
 
   return (
     <Grid textAlign="center" style={{ height: '100vh' }} verticalAlign="middle">

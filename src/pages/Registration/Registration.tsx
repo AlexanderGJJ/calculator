@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import {
   Button,
   Form,
@@ -39,10 +39,15 @@ const Registration = () => {
     },
     resolver: yupResolver(validationSchema),
   });
-  const { registration, isLoading } = useContext(AuthContext);
+  const { registration, isLoading, isAuth } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const onSubmit = async (data: FormData) => {
-    const result = await registration(data.email, data.password); //await ?? is Auth
+    await registration(data.email, data.password);
+
+    if (isAuth) {
+      navigate('/');
+    }
   };
 
   if (isLoading) {

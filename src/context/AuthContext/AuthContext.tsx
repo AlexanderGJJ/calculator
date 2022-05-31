@@ -74,13 +74,13 @@ export const AuthContextProvider = (props: { children: ReactChild }) => {
         withCredentials: true,
       });
 
-      console.log(response);
+      console.log(response, 'checkAuth');
 
       localStorage.setItem('token', response.data.accessToken);
       setAuth(true);
+      console.log(' setAuth(true)');
       setUser(response.data.user);
     } catch (e: any) {
-      console.log('catch error');
       console.log(e.response?.data?.message);
     } finally {
       setLoading(false);
