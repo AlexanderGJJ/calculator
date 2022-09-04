@@ -18,9 +18,7 @@ api.interceptors.request.use((config) => {
 });
 
 api.interceptors.response.use(
-  (config) => {
-    return config;
-  },
+  (config) => config,
   async (error) => {
     const originRequest = error.config;
 
@@ -37,7 +35,7 @@ api.interceptors.response.use(
         localStorage.setItem('token', response.data.accessToken);
         return api.request(originRequest);
       } catch (e) {
-        console.log('Не авторизован!');
+        // console.log('Не авторизован!');
       }
     }
 

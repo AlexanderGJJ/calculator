@@ -1,14 +1,14 @@
-import { createContext, ReactChild, useState } from 'react';
+import { createContext, ReactChild, useState, useMemo } from 'react';
 import axios from 'axios';
 
-import { IUser } from '../../models/user/IUser';
+import { User } from '../../models/user/User';
 import { AuthService } from '../../services/AuthService';
-import { API_URL } from '../../http';
+import { API_URL } from '../../api';
 
 interface AuthContext {
   isAuth: boolean;
   isLoading: boolean;
-  user: IUser;
+  user: User;
   login: (email: string, password: string) => void;
   registration: (email: string, password: string) => void;
   logout: () => void;
@@ -18,7 +18,7 @@ interface AuthContext {
 const initialState: AuthContext = {
   isAuth: false,
   isLoading: false,
-  user: {} as IUser,
+  user: {} as User,
   login: () => {},
   logout: () => {},
   registration: () => {},
@@ -27,9 +27,9 @@ const initialState: AuthContext = {
 
 export const AuthContext = createContext(initialState);
 
-export const AuthContextProvider = (props: { children: ReactChild }) => {
+export const AuthContextProvider = ({ children }: { children: ReactChild }) => {
   const [isAuth, setAuth] = useState<boolean>(false);
-  const [user, setUser] = useState<IUser>({} as IUser);
+  const [user, setUser] = useState<User>({} as User);
   const [isLoading, setLoading] = useState(false);
 
   const login = async (email: string, password: string) => {
@@ -61,7 +61,7 @@ export const AuthContextProvider = (props: { children: ReactChild }) => {
       const response = await AuthService.logout();
       localStorage.removeItem('token');
       setAuth(false);
-      setUser({} as IUser);
+      setUser({} as User);
     } catch (e: any) {
       console.log(e.response?.data?.message);
     }
@@ -87,19 +87,18 @@ export const AuthContextProvider = (props: { children: ReactChild }) => {
     }
   };
 
-  const contextValues = {
-    isAuth,
-    isLoading,
-    user,
-    login,
-    logout,
-    registration,
-    checkAuth,
-  };
+  const contextValues = useMemo(
+    () => ({
+      isAuth,
+      isLoading,
+      user,
+      login,
+      logout,
+      registration,
+      checkAuth,
+    }),
+    [isAuth, isLoading, user, login, logout, registration, checkAuth]
+  ); // should read dock
 
-  return (
-    <AuthContext.Provider value={contextValues}>
-      {props.children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={contextValues}>{children}</AuthContext.Provider>;
 };

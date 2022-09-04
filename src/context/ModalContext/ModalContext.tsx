@@ -1,5 +1,5 @@
 import React, { useState, createContext, useContext } from 'react';
-import { createPortal } from 'react-dom';
+// import { createPortal } from 'react-dom';
 
 import { ModalBankAccount } from '../../modals/ModalBankAccount';
 
@@ -12,7 +12,7 @@ const MODAL_COMPONENTS: any = {
 };
 
 type ContextType = {
-  showModal: (modalType: string, modalProps?: any) => void;
+  showModal: (modalType: string, modalProps?: Object) => void;
   hideModal: () => void;
   store: {
     modalType: string;
@@ -30,13 +30,17 @@ const initalState: ContextType = {
 };
 
 const GlobalModalContext = createContext(initalState);
-export const useGlobalModalContext = () => useContext(GlobalModalContext);
+export const useGlobalModalContext = () =>
+  useContext(GlobalModalContext);
 
 export const GlobalModal: React.FC = ({ children }) => {
-  const [store, setStore] = useState({ modalType: '', modalProps: {} });
+  const [store, setStore] = useState({
+    modalType: '',
+    modalProps: {},
+  });
   const { modalType, modalProps } = store || {};
 
-  const showModal = (modalType: string, modalProps: any = {}) => {
+  const showModal = (modalType: string, modalProps: Object = {}) => {
     setStore({
       modalType,
       modalProps,
@@ -52,7 +56,7 @@ export const GlobalModal: React.FC = ({ children }) => {
 
   const renderComponent = () => {
     const ModalComponent = MODAL_COMPONENTS[modalType];
-    console.log(ModalComponent);
+    console.log('!!!renderComponent!', modalType);
     if (!modalType || !ModalComponent) {
       return null;
     }
@@ -60,7 +64,9 @@ export const GlobalModal: React.FC = ({ children }) => {
   };
 
   return (
-    <GlobalModalContext.Provider value={{ store, showModal, hideModal }}>
+    <GlobalModalContext.Provider
+      value={{ store, showModal, hideModal }}
+    >
       {renderComponent()}
       {children}
     </GlobalModalContext.Provider>

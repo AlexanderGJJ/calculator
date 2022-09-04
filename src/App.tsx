@@ -1,24 +1,29 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import { Registration } from './pages/Registration';
 import { Login } from './pages/Login';
 import { Main } from './pages/Main';
 import { NotFound } from './pages/NotFound';
-import { AuthContext } from './context/AuthContext';
+import { ProtectedRoute } from './components/ProtectedRoute';
+import { useAuth } from './hooks/useAuth';
+import { ROUTE_PATHS } from './constants/routePaths';
 
 const App = () => {
-  const { checkAuth, isLoading, isAuth } = useContext(AuthContext);
+  const { checkAuth, isLoading, isAuth } = useAuth();
+
+  console.log(useAuth(), 'useAuth()');
 
   useEffect(() => {
     const check = async () => {
+      console.log('check func call');
+      console.log(isAuth, 'isAuth');
       if (localStorage.getItem('token')) {
         await checkAuth();
-        console.log(isAuth, 'isAuth');
       }
     };
 
-    check();
+    check(); // func call
   }, []);
 
   if (isLoading) {
@@ -27,9 +32,14 @@ const App = () => {
 
   return (
     <Routes>
-      <Route element={<Main />} path="/" />
-      <Route element={<Registration />} path="/registration" />
-      <Route element={<Login />} path="/login" />
+      <Route element={<ProtectedRoute isAllowed />}>
+        <Route element={<Main />} path={ROUTE_PATHS.ROOT} />
+      </Route>
+      <Route
+        element={<Registration />}
+        path={ROUTE_PATHS.REGISTRATION}
+      />
+      <Route element={<Login />} path={ROUTE_PATHS.LOGIN} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

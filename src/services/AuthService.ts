@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { api } from '../http';
+import { api } from '../api';
 import { AuthResponse } from '../models/response/AuthResponse';
 
 class AuthService {
@@ -18,7 +18,10 @@ class AuthService {
     email: string,
     password: string
   ): Promise<AxiosResponse<AuthResponse>> {
-    return api.post<AuthResponse>('/registration', { email, password });
+    return api.post<AuthResponse>('/registration', {
+      email,
+      password,
+    });
   }
 }
 
