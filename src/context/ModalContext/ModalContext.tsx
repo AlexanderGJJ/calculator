@@ -30,8 +30,7 @@ const initalState: ContextType = {
 };
 
 const GlobalModalContext = createContext(initalState);
-export const useGlobalModalContext = () =>
-  useContext(GlobalModalContext);
+export const useGlobalModalContext = () => useContext(GlobalModalContext);
 
 export const GlobalModal: React.FC = ({ children }) => {
   const [store, setStore] = useState({
@@ -56,7 +55,7 @@ export const GlobalModal: React.FC = ({ children }) => {
 
   const renderComponent = () => {
     const ModalComponent = MODAL_COMPONENTS[modalType];
-    console.log('!!!renderComponent!', modalType);
+    console.log('!!!renderComponent!', modalType); // Почему ты рендеришься при инициализации?
     if (!modalType || !ModalComponent) {
       return null;
     }
@@ -64,9 +63,7 @@ export const GlobalModal: React.FC = ({ children }) => {
   };
 
   return (
-    <GlobalModalContext.Provider
-      value={{ store, showModal, hideModal }}
-    >
+    <GlobalModalContext.Provider value={{ store, showModal, hideModal }}>
       {renderComponent()}
       {children}
     </GlobalModalContext.Provider>

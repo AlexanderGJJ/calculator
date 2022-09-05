@@ -3,10 +3,7 @@ import { api } from '../api';
 import { AuthResponse } from '../models/response/AuthResponse';
 
 class AuthService {
-  static async login(
-    email: string,
-    password: string
-  ): Promise<AxiosResponse<AuthResponse>> {
+  static async login(email: string, password: string): Promise<AxiosResponse<AuthResponse>> {
     return api.post<AuthResponse>('/login', { email, password });
   }
 
@@ -14,10 +11,7 @@ class AuthService {
     return api.post('/logout');
   }
 
-  static async registration(
-    email: string,
-    password: string
-  ): Promise<AxiosResponse<AuthResponse>> {
+  static async registration(email: string, password: string): Promise<AxiosResponse<AuthResponse>> {
     return api.post<AuthResponse>('/registration', {
       email,
       password,

@@ -12,18 +12,10 @@ import { ROUTE_PATHS } from './constants/routePaths';
 const App = () => {
   const { checkAuth, isLoading, isAuth } = useAuth();
 
-  console.log(useAuth(), 'useAuth()');
-
   useEffect(() => {
-    const check = async () => {
-      console.log('check func call');
-      console.log(isAuth, 'isAuth');
-      if (localStorage.getItem('token')) {
-        await checkAuth();
-      }
-    };
-
-    check(); // func call
+    if (localStorage.getItem('token')) {
+      checkAuth();
+    }
   }, []);
 
   if (isLoading) {
@@ -32,13 +24,10 @@ const App = () => {
 
   return (
     <Routes>
-      <Route element={<ProtectedRoute isAllowed />}>
+      <Route element={<ProtectedRoute isAllowed={isAuth} />}>
         <Route element={<Main />} path={ROUTE_PATHS.ROOT} />
       </Route>
-      <Route
-        element={<Registration />}
-        path={ROUTE_PATHS.REGISTRATION}
-      />
+      <Route element={<Registration />} path={ROUTE_PATHS.REGISTRATION} />
       <Route element={<Login />} path={ROUTE_PATHS.LOGIN} />
       <Route path="*" element={<NotFound />} />
     </Routes>

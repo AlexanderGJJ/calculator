@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import { AuthResponse } from '../models/response/AuthResponse';
 
 export const API_URL = 'http://localhost:7001/api';
@@ -8,7 +8,8 @@ const api = axios.create({
   baseURL: API_URL,
 });
 
-api.interceptors.request.use((config) => {
+api.interceptors.request.use((config: AxiosRequestConfig) => {
+  console.log('interceptors.request');
   const token = localStorage.getItem('token');
   if (!config.headers) {
     config.headers = {};
@@ -22,20 +23,17 @@ api.interceptors.response.use(
   async (error) => {
     const originRequest = error.config;
 
-    if (
-      error.response.status === 401 &&
-      error.config &&
-      !error.config._isRetry
-    ) {
+    if (error.response.status === 401 && error.config && !error.config._isRetry) {
       originRequest._isRetry = true;
       try {
+        console.log('try in interceptors.response');
         const response = await axios.get<AuthResponse>(`${API_URL}/refresh`, {
           withCredentials: true,
         });
         localStorage.setItem('token', response.data.accessToken);
         return api.request(originRequest);
       } catch (e) {
-        // console.log('Не авторизован!');
+        console.log('Не авторизован!');
       }
     }
 

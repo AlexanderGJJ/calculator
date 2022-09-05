@@ -3,7 +3,8 @@ import axios from 'axios';
 
 import { User } from '../../models/user/User';
 import { AuthService } from '../../services/AuthService';
-import { API_URL } from '../../api';
+import { api, API_URL } from '../../api';
+import { AuthResponse } from '../../models/response/AuthResponse';
 
 interface AuthContext {
   isAuth: boolean;
@@ -35,7 +36,6 @@ export const AuthContextProvider = ({ children }: { children: ReactChild }) => {
   const login = async (email: string, password: string) => {
     try {
       const response = await AuthService.login(email, password);
-      console.log(response);
       localStorage.setItem('token', response.data.accessToken);
       setAuth(true);
       setUser(response.data.user);
@@ -70,17 +70,16 @@ export const AuthContextProvider = ({ children }: { children: ReactChild }) => {
   const checkAuth = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`${API_URL}/refresh`, {
+      const response = await axios.get<AuthResponse>(`${API_URL}/refresh`, {
         withCredentials: true,
       });
 
-      console.log(response, 'checkAuth');
-
       localStorage.setItem('token', response.data.accessToken);
       setAuth(true);
-      console.log(' setAuth(true)');
       setUser(response.data.user);
     } catch (e: any) {
+      console.log(e, 'error');
+      setAuth(false);
       console.log(e.response?.data?.message);
     } finally {
       setLoading(false);
