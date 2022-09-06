@@ -1,10 +1,10 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { AuthResponse } from '../models/response/AuthResponse';
-import { ENDPOINTS, ENDPOINTS_ROOT } from './endpoints';
+import { ENDPOINTS, ROOT_ENDPOINT } from './endpoints';
 
 const api = axios.create({
   withCredentials: true,
-  baseURL: ENDPOINTS_ROOT,
+  baseURL: ROOT_ENDPOINT,
 });
 
 api.interceptors.request.use((config: AxiosRequestConfig) => {
