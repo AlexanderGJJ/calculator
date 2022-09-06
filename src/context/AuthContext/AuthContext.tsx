@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import { User } from '../../models/user/User';
 import { AuthService } from '../../services/AuthService';
-import { api, API_URL } from '../../api';
+import { ENDPOINTS } from '../../api';
 import { AuthResponse } from '../../models/response/AuthResponse';
 
 interface AuthContext {
@@ -70,7 +70,7 @@ export const AuthContextProvider = ({ children }: { children: ReactChild }) => {
   const checkAuth = async () => {
     setLoading(true);
     try {
-      const response = await axios.get<AuthResponse>(`${API_URL}/refresh`, {
+      const response = await axios.get<AuthResponse>(`${ENDPOINTS.REFRESH}`, {
         withCredentials: true,
       });
 
