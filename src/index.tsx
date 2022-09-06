@@ -1,4 +1,5 @@
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import 'semantic-ui-css/semantic.min.css';
 
 import { Provider } from 'react-redux';
@@ -25,4 +26,6 @@ const app = (
   </ErrorBoundary>
 );
 
-ReactDOM.render(app, document.getElementById('root'));
+const container = document.getElementById('root');
+const root = createRoot(container!);
+root.render(app);
