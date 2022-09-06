@@ -8,6 +8,7 @@ import { NotFound } from './pages/NotFound';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { useAuth } from './hooks/useAuth';
 import { ROUTE_PATHS } from './constants/routePaths';
+import { Loader } from './components/Loader';
 
 const App = () => {
   const { checkAuth, isLoading, isAuth } = useAuth();
@@ -19,7 +20,7 @@ const App = () => {
   }, []);
 
   if (isLoading) {
-    return <div>'Loading...'</div>;
+    return <Loader />;
   }
 
   return (
