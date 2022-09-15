@@ -1,4 +1,3 @@
-import { render } from 'react-dom';
 import { createRoot } from 'react-dom/client';
 import 'semantic-ui-css/semantic.min.css';
 

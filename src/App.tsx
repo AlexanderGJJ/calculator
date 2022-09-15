@@ -22,10 +22,9 @@ const App = () => {
   if (isLoading) {
     return <Loader />;
   }
-
   return (
     <Routes>
-      <Route element={<ProtectedRoute isAllowed={isAuth} />}>
+      <Route element={<ProtectedRoute isAllowed={isAuth} redirectPath={ROUTE_PATHS.LOGIN} />}>
         <Route element={<Main />} path={ROUTE_PATHS.ROOT} />
       </Route>
       <Route element={<Registration />} path={ROUTE_PATHS.REGISTRATION} />

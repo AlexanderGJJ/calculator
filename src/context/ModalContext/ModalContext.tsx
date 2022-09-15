@@ -1,4 +1,4 @@
-import React, { useState, createContext, useContext } from 'react';
+import React, { useState, createContext, useContext, ReactNode } from 'react';
 // import { createPortal } from 'react-dom';
 
 import { ModalBankAccount } from '../../modals/ModalBankAccount';
@@ -32,7 +32,7 @@ const initalState: ContextType = {
 const GlobalModalContext = createContext(initalState);
 export const useGlobalModalContext = () => useContext(GlobalModalContext);
 
-export const GlobalModal: React.FC = ({ children }) => {
+export const GlobalModal = ({ children }: { children: ReactNode }) => {
   const [store, setStore] = useState({
     modalType: '',
     modalProps: {},
