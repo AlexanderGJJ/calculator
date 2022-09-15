@@ -1,5 +1,4 @@
-// export const ENDPOINTS_ROOT = process.env.REACT_APP_API_ENDPOINT;
-export const ROOT_ENDPOINT = 'http://localhost:7001/api';
+export const ROOT_ENDPOINT = import.meta.env.VITE_REACT_APP_API_ENDPOINT;
 
 export const ENDPOINTS = {
   LOGIN: `${ROOT_ENDPOINT}/login`,

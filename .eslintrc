@@ -47,7 +47,9 @@
         "no-param-reassign": "off", // !!!
 
         "no-empty-function": "off",
-        "@typescript-eslint/no-empty-function": ["error",  {"allow": ["arrowFunctions"]}]
+        "@typescript-eslint/no-empty-function": ["error",  {"allow": ["arrowFunctions"]}],
+        "no-shadow": "off", // fix enum
+        "@typescript-eslint/no-shadow": ["error"]
     },
     "settings": {
         "import/resolver": {
