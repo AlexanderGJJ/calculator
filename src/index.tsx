@@ -5,11 +5,11 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
 import { App } from './App';
-import { AuthContextProvider, GlobalModal } from './context';
+import { AuthContextProvider } from './context';
 import { ErrorBoundary } from './pages/Error';
 
-import './styles.scss';
 import { store } from './store/store';
+import './styles.css';
 
 const app = (
   <ErrorBoundary>
