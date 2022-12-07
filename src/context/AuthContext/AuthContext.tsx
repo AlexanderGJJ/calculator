@@ -1,4 +1,4 @@
-import { createContext, useMemo, useReducer, ReactNode } from 'react';
+import { createContext, useMemo, useReducer, ReactNode, useEffect } from 'react';
 import axios from 'axios';
 
 import { AuthService } from '../../services/AuthService';
@@ -53,7 +53,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
       const response = await AuthService.logout();
       localStorage.removeItem('token');
       dispatch({ type: ACTIONS.SET_AUTH, payload: { isAuth: true } });
-      dispatch({ type: ACTIONS.SET_USER, payload: { user: {} as User } });
+      dispatch({ type: ACTIONS.SET_USER, payload: { user: {} as any } });
     } catch (e: any) {
       console.log(e.response?.data?.message);
     }
@@ -71,12 +71,11 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
 
       dispatch({ type: ACTIONS.SET_AUTH, payload: { isAuth: true } });
       dispatch({ type: ACTIONS.SET_USER, payload: { user: response.data.user } });
+      dispatch({ type: ACTIONS.LOADING, payload: { isLoading: false } });
     } catch (e: any) {
       console.log(e, 'error');
       dispatch({ type: ACTIONS.LOADING, payload: { isLoading: false } });
       console.log(e.response?.data?.message);
-    } finally {
-      dispatch({ type: ACTIONS.LOADING, payload: { isLoading: false } });
     }
   };
 
@@ -91,7 +90,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
       checkAuth,
     }),
     [isAuth, isLoading, user, login, logout, registration, checkAuth]
-  ); // should read dock
+  );
 
   return <AuthContext.Provider value={contextValues}>{children}</AuthContext.Provider>;
 };

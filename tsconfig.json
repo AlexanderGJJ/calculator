@@ -14,9 +14,10 @@
     "jsx": "react-jsx",
     "allowSyntheticDefaultImports": true,
 //    "strictDomEventTypes": false,
-    "isolatedModules": true
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "types": ["node", "@types/jest", "@testing-library/jest-dom", "vite/client"]
   },
-  "references": [{ "path": "./tsconfig.node.json" }],
   "include": [
     "./src/**/*"
   ]
