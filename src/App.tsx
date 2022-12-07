@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import { Registration } from './pages/Registration';
@@ -11,13 +11,7 @@ import { ROUTE_PATHS } from './constants/routePaths';
 import { Loader } from './components/Loader';
 
 const App = () => {
-  const { checkAuth, isLoading, isAuth } = useAuth();
-
-  useEffect(() => {
-    if (localStorage.getItem('token')) {
-      checkAuth();
-    }
-  }, []);
+  const { isLoading, isAuth } = useAuth();
 
   if (isLoading) {
     return <Loader />;

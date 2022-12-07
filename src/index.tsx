@@ -15,11 +15,11 @@ const app = (
   <ErrorBoundary>
     <Provider store={store}>
       <AuthContextProvider>
-        <GlobalModal>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </GlobalModal>
+        {/* <GlobalModal> */}
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+        {/* </GlobalModal> */}
       </AuthContextProvider>
     </Provider>
   </ErrorBoundary>

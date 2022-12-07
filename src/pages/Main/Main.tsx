@@ -1,25 +1,31 @@
-import React from 'react';
-
+import React, { useContext } from 'react';
 import { BottomMenu } from '../../components/BottomMenu';
+import { AuthContext } from '../../context';
 
-import styles from './styles.module.scss';
 import { Sidebar } from '../../components/Sidebar';
+import styles from './styles.module.scss';
 
-const Main = () => (
-  <main className={styles.main}>
-    <Sidebar />
-    <div>
-      <ul>
-        <li>Обзор</li>
-        <li>Транкзанкции</li>
-        <li>Отчеты</li>
-        <li>Настройки!</li>
-      </ul>
-      <div>main control</div>
-      <BottomMenu />
-    </div>
-    <nav />
-  </main>
-);
+const Main = () => {
+  const { logout } = useContext(AuthContext);
+  const onLogOut = () => logout();
+
+  return (
+    <main className={styles.main}>
+      <Sidebar />
+      <button onClick={onLogOut}>log out!</button>
+      <div>
+        <ul>
+          <li>Обзор</li>
+          <li>Транкзанкции</li>
+          <li>Отчеты</li>
+          <li>Настройки!</li>
+        </ul>
+        <div>main control</div>
+        <BottomMenu />
+      </div>
+      <nav />
+    </main>
+  );
+};
 
 export { Main };

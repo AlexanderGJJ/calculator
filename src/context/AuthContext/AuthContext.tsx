@@ -4,6 +4,7 @@ import axios from 'axios';
 import { AuthService } from '../../services/AuthService';
 import { ENDPOINTS } from '../../api';
 import { AuthResponse } from '../../models/response/AuthResponse';
+import { User } from '../../models/user/User';
 
 import { InitalState, ACTIONS, initialContext, initialStateReducer, Action } from './types';
 
@@ -49,11 +50,12 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const logout = async () => {
+    console.log('logout');
     try {
       const response = await AuthService.logout();
       localStorage.removeItem('token');
-      dispatch({ type: ACTIONS.SET_AUTH, payload: { isAuth: true } });
-      dispatch({ type: ACTIONS.SET_USER, payload: { user: {} as any } });
+      dispatch({ type: ACTIONS.SET_AUTH, payload: { isAuth: false } });
+      dispatch({ type: ACTIONS.SET_USER, payload: { user: {} as User } });
     } catch (e: any) {
       console.log(e.response?.data?.message);
     }

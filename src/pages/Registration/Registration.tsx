@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
 import { useForm, Controller } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { AuthContext } from '../../context/AuthContext';
+import { AuthContext } from '../../context';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required('Email is required').email('Email is invalid'),
@@ -37,11 +37,13 @@ const Registration = () => {
 
   const onSubmit = async (data: FormData) => {
     await registration(data.email, data.password);
+  };
 
+  useEffect(() => {
     if (isAuth) {
       navigate('/');
-    } // ???
-  };
+    }
+  }, [isAuth]);
 
   if (isLoading) {
     return <div>'Loading...'</div>;
