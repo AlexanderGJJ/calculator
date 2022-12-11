@@ -19,7 +19,9 @@
     },
     "plugins": [
         "react",
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "import",
+        "prettier"
     ],
     "rules": {
         "import/extensions": [
@@ -49,7 +51,27 @@
         "no-empty-function": "off",
         "@typescript-eslint/no-empty-function": ["error",  {"allow": ["arrowFunctions"]}],
         "no-shadow": "off", // fix enum
-        "@typescript-eslint/no-shadow": ["error"]
+        "@typescript-eslint/no-shadow": ["error"],
+        "import/order": [
+            1, { "groups":
+            [
+                "external",
+                "builtin",
+                "internal",
+                "sibling",
+                "parent",
+                "index"
+            ]
+            }
+        ],
+        "sort-imports":
+        [
+            "error",
+            {
+                "ignoreCase": true,
+                "ignoreDeclarationSort": true
+            }
+        ]
     },
     "settings": {
         "import/resolver": {

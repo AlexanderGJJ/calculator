@@ -16,7 +16,12 @@
 //    "strictDomEventTypes": false,
     "skipLibCheck": true,
     "isolatedModules": true,
-    "types": ["node", "@types/jest", "@testing-library/jest-dom", "vite/client"]
+    "types": ["node", "@types/jest", "@testing-library/jest-dom", "vite/client"],
+    "paths": {
+      "@app/*": [
+        "./src/*"
+      ]
+    }
   },
   "include": [
     "./src/**/*"
