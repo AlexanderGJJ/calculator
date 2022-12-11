@@ -1,11 +1,11 @@
 import { useContext, useEffect } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { AuthContext } from '../../context/AuthContext';
+import { ROUTE_PATHS } from '@app/constants';
+import { AuthContext } from '@app/context';
 
 type FormData = {
   email: string;
@@ -24,7 +24,7 @@ const Login = () => {
   const {
     handleSubmit,
     formState: { errors },
-    control,
+    register,
   } = useForm<FormData>({
     defaultValues: {
       email: '',
@@ -44,68 +44,50 @@ const Login = () => {
 
   useEffect(() => {
     if (isAuth) {
-      navigate('/');
+      navigate(ROUTE_PATHS.ROOT); // TODO: сделать на уровне роутера?
     }
   }, [isAuth]);
 
   return (
-    <Grid textAlign="center" style={{ height: '100vh' }} verticalAlign="middle">
-      <Grid.Column style={{ maxWidth: 450 }}>
-        <Header as="h2" color="teal" textAlign="center">
-          Log-in to your account
-        </Header>
-        <Form onSubmit={handleSubmit(onSubmit)}>
-          <Segment>
-            <Controller
-              name="email"
-              control={control}
-              render={({ field }) => (
-                <Form.Input
-                  {...field}
-                  error={
-                    !!errors.email && {
-                      content: errors.email.message,
-                    }
-                  }
-                  fluid
-                  icon="user"
-                  iconPosition="left"
-                  placeholder="E-mail address"
-                  ref={null}
-                />
-              )}
-            />
-            <Controller
-              name="password"
-              control={control}
-              render={({ field }) => (
-                <Form.Input
-                  {...field}
-                  error={
-                    !!errors.password && {
-                      content: errors.password.message,
-                    }
-                  }
-                  fluid
-                  icon="lock"
-                  iconPosition="left"
-                  placeholder="Password"
-                  type="password"
-                  ref={null}
-                />
-              )}
-            />
-
-            <Button color="teal" fluid size="large">
-              Login
-            </Button>
-          </Segment>
-        </Form>
-        <Message>
-          New to us? <RouterLink to="/registration">Sign Up</RouterLink>
-        </Message>
-      </Grid.Column>
-    </Grid>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="mb-4">
+        <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">
+          Email
+        </label>
+        <input
+          {...register('email')}
+          type="text"
+          id="email"
+          name="email"
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        />
+        {errors.email && <div className="text-red-400">{errors.email.message}</div>}
+      </div>
+      <div className="mb-6">
+        <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-2">
+          Password
+        </label>
+        <input
+          {...register('password')}
+          type="password"
+          id="password"
+          name="password"
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        />
+        {errors.password && <div className="text-red-400">{errors.password.message}</div>}
+      </div>
+      <div className="flex items-center justify-between">
+        <button
+          type="submit"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        >
+          Login
+        </button>
+      </div>
+      <div>
+        <RouterLink to={ROUTE_PATHS.REGISTRATION}>Sing up!</RouterLink>
+      </div>
+    </form>
   );
 };
 
