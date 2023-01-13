@@ -1,8 +1,8 @@
-import { useContext, useEffect } from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useContext, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import * as Yup from 'yup';
 
 import { ROUTE_PATHS } from '@app/constants';
 import { AuthContext } from '@app/context';
@@ -50,7 +50,7 @@ const Login = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="mb-4">
+      <div className="mb-4 text-3">
         <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">
           Email
         </label>

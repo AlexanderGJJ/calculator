@@ -5,7 +5,6 @@ const useAuth = () => {
   const context = useContext(AuthContext);
   useEffect(() => {
     if (localStorage.getItem('token')) {
-      console.log(11);
       context.checkAuth();
     }
   }, []);

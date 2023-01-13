@@ -1,14 +1,30 @@
-import { createContext, useMemo, useReducer, ReactNode, useEffect } from 'react';
+import { createContext, ReactNode, useMemo, useReducer } from 'react';
 import axios from 'axios';
 
-import { AuthService } from '../../services/AuthService';
-import { ENDPOINTS } from '../../api';
-import { AuthResponse } from '../../models/response/AuthResponse';
-import { User } from '../../models/user/User';
+import { AuthService } from '@app/services';
+import { ENDPOINTS } from '@app/api';
+import { AuthResponse } from '@app/models/response/AuthResponse';
+import { User } from '@app/models/user/User';
 
-import { InitalState, ACTIONS, initialContext, initialStateReducer, Action } from './types';
+import { Action, ACTIONS, AuthContextType, InitialState } from './types';
 
-function reducer(state: InitalState, action: Action): InitalState {
+const initialContext: AuthContextType = {
+  isAuth: false,
+  isLoading: false,
+  user: {} as User,
+  login: () => {},
+  logout: () => {},
+  registration: () => {},
+  checkAuth: () => {},
+};
+
+const initialStateReducer: InitialState = {
+  isAuth: false,
+  isLoading: false,
+  user: {} as User,
+};
+
+function reducer(state: InitialState, action: Action): InitialState {
   switch (action.type) {
     case ACTIONS.SET_AUTH:
       return { ...state, isAuth: action.payload.isAuth };

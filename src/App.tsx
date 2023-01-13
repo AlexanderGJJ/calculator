@@ -7,7 +7,7 @@ import { Main } from './pages/Main';
 import { NotFound } from './pages/NotFound';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { useAuth } from './hooks/useAuth';
-import { ROUTE_PATHS } from './constants/routePaths';
+import { ROUTE_PATHS } from './constants';
 import { Loader } from './components/Loader';
 
 const App = () => {

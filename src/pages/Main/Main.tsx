@@ -1,8 +1,10 @@
-import React, { useContext } from 'react';
-import { BottomMenu } from '../../components/BottomMenu';
-import { AuthContext } from '../../context';
+import { useContext } from 'react';
+import { BottomMenu } from '@app/components/BottomMenu';
+import { AuthContext } from '@app/context';
 
-import { Sidebar } from '../../components/Sidebar';
+import { Sidebar } from '@app/components/Sidebar';
+
+import { Input } from '@app/components/Input';
 import styles from './styles.module.scss';
 
 const Main = () => {
@@ -12,12 +14,12 @@ const Main = () => {
   return (
     <main className={styles.main}>
       <Sidebar />
+
       <button onClick={onLogOut}>log out!</button>
+
       <div>
-        <h1 className="text-3xl font-bold underline">Hello world!</h1>
-        <h1 className="text-3xl font-bold underline text-red-600">
-          Simple React Typescript Tailwind Sample
-        </h1>
+        <Input />
+
         <ul>
           <li>Обзор</li>
           <li>Транкзанкции</li>
